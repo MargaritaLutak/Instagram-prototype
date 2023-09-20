@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <title>CGallery</title>
+</head>
+
+<body class="">
+  <span class="body-overlay"></span>
+  <div class="container">
+    <header class="header">
+      <div class="header__content">
+
+        <div class="avatar-container">
+          <label for="file-bio-upload" class="avatar">
+            <div class="lds-spinner hidden"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <img class="avatar" id="profile-avatar" alt="codegirl_school" />
+          </label>
+        </div>
+        <input id="file-bio-upload" name="image" type="file" accept="image/*, .jpg, .jpeg, .png"></button>
+
+
+
+        <div class="header__info">
+          <h2 id="account-nickname">codegirl_school</h2>
+          <span id="account-name">IT-школа для девушек | WEB</span>
+          <p id="description">
+            200+ выпускниц школы <br />
+            Разработка сайтов с помощью HTML, CSS и JS <br />
+            5 бесплатных уроков
+          </p>
+        </div>
+
+        <div class="header__controls">
+          <button type="button" id="add-photo">Добавить публикацию</button>
+          <button type="button" id="edit-bio">
+            <i class="fa fa-pencil"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="photos">
+      <div class="photos__info">
+        <span class="photos__info-title">Фото</span>
+        <span><span id="photo-count">0</span> публикаций</span>
+      </div>
+      <div class="empty-content photos__empty-content hidden">
+        <img class="empty-content__placeholder" src="./assets/photos.svg" />
+        <h2 class="empty-content__title">У вас пока нет публикаций</h2>
+        <p class="empty-content__text">Создайте свою первую публикацию</p>
+        <button type="button" id="add-first-post" class="empty-content__button">
+          Создать публикацию
+        </button>
+      </div>
+
+      <div class="photos__content">
+        <!-- Посты из post template -->
+      </div>
+
+    </main>
+    <footer class="footer">© 2023 codegirl_school</footer>
+
+    <!-- Add post modal start -->
+    <div class="modal add-post-modal">
+      <div class="modal__header">Создание публикации</div>
+      <div class="modal__content">
+        <div class="add-post-modal__step-1">
+          <div class="drag-and-drop-container">
+            <img class="add-post-modal__img" width="249" src="./assets/photos.svg" alt="" />
+            <h1 class="add-post-modal__text">Перетащите сюда фото</h1>
+          </div>
+          <div>
+            <label for="file-upload" class="add-post-modal__upload-photo">
+              Добавить фото
+            </label>
+            <input id="file-upload" name="image" type="file" accept="image/*, .jpg, .jpeg, .png"></button>
+          </div>
+        </div>
+
+        <div class="add-post-modal__step-2 hidden">
+          <div class="account-info">
+            <img src="./assets/avatar-small.svg" alt="codegirl_school" />
+            <span>codegirl_school</span>
+          </div>
+          <img id="uploaded-photo" width="440" src="./img/photo-post.jpg" alt="" />
+          <div class="add-post-modal__inputs-wrapper">
+            <div class="add-post-modal__post-text">
+              <textarea name="text" id="post-text" placeholder="Добавить подпись" cols="30" rows="10"></textarea>
+              <div class="text-counter">0/500</div>
+            </div>
+            <div>
+              <textarea name="tags" id="post-hashtags" cols="30" rows="2" placeholder="Добавить хештеги"></textarea>
+              <label for="post-hashtags" class="post-hashtags-label">Please match the required format(example:#hashtag
+              #hashtag)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer hidden">
+        <button class="add-post-modal__button-publish" id="post-publish" type="button">
+          Опубликовать
+        </button>
+      </div>
+    </div>
+    <!-- Add post modal end -->
+
+    <!-- Edit bio modal start -->
+    <div class="modal edit-bio-modal">
+      <div class="modal__header edit-bio-modal__header">
+        Персональные данные
+      </div>
+      <div class="modal__content">
+        <div class="account-info">
+          <img src="./assets/avatar-small.svg" alt="codegirl_school" />
+          <span>codegirl_school</span>
+        </div>
+        <div class="edit-bio-modal__fields">
+          <div class="edit-bio-modal__nickname">
+            <label for="nickname">Никнейм</label>
+            <input name="nickname" id="nickname" />
+            <div class="required-field hidden">Обязательное поле</div>
+          </div>
+          <div class="edit-bio-modal__name">
+            <label for="name">Имя пользователя</label>
+            <input name="name" id="name" />
+          </div>
+          <div class="edit-bio-modal__bio">
+            <label for="bio">О себе</label>
+            <textarea name="bio" id="bio" cols="30" rows="2"></textarea>
+            <div class="edit-bio-modal__bio-feedback">
+              <div class="max-capacity v-hidden">
+                Максимальное количество символов 150
+              </div>
+              <div class="bio-count"><span>0</span>/150</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer edit-bio-modal__footer">
+        <button id="bio-save" class="edit-bio-modal__button-save" type="button">
+          Сохранить
+        </button>
+        <button id="bio-discard" class="edit-bio-modal__button-cancel" type="button">
+          Отменить
+        </button>
+      </div>
+    </div>
+    <!-- Edit bio modal end -->
+
+    <!-- Preview post modal start -->
+    <div class="modal preview-post-modal">
+      <div class="preview-post-modal__header">
+        <div class="account-info">
+          <div class="avatar-container-small">
+            <img class="preview-post-modal-avatar avatar-small" src="./assets/avatar-small.svg" alt="codegirl_school" />
+          </div>
+          <div>
+            <span class="preview-post-modal-nickname">codegirl_school</span>
+            <span class="account-info__time">15 октября</span>
+          </div>
+        </div>
+        <button type="button" id="delete-post" class="delete-post-button">Удалить</button>
+      </div>
+      <div class="modal__content">
+        <img id="post-photo" width="440" src="./img/photo-post.jpg" alt="" />
+        <div class="statistics">
+          <span class="statistics__likes">
+            <i class="fa fa-heart fa-heart-btn"></i>
+            <span>0</span>
+          </span>
+          <span class="statistics__comments">
+            <i class="fa fa-comment"></i>
+            <span>0</span>
+          </span>
+        </div>
+        <p class="post-text">
+          Неожиданный вопрос, правда? Кажется, что HTML и CSS — инструмент
+          разработчиков и верстальщиков. Но на самом деле есть и другие
+          профессии, которым приходится иметь дело с кодом 👌.
+        </p>
+        <p class="post-hashtags">
+        
+        </p>
+        <div class="comments">
+          <div class="comments__content">
+            <div class="comments__container">
+
+            
+            </div>
+
+            <div class="comments__add">
+              <div class="avatar-container-small">
+                <img class="avatar-small" src="./assets/avatar-small.svg" alt="" />
+              </div>
+              <textarea rows="1" name="post-comment" id="post-comment" placeholder="Добавить комментарий"></textarea>
+              <button type="button" class="comments-button">
+                <i class="fa fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Preview post modal end -->
+    </div>
+    <!-- Alert notifications start -->
+
+    <div class="alert alert--success hidden">
+      <div class="alert__ellipsis"></div>
+      <div class="alert__icon">
+        <i class="fa fa-check fa-3x"></i>
+      </div>
+      <div class="alert__text">
+        <h4 class="alert__title">Данные сохранены!</h4>
+        <p class="alert__info">Мы сохранили ваши данные</p>
+      </div>
+    </div>
+
+
+
+    <div class="alert alert--error hidden">
+      <div class="alert__ellipsis"></div>
+      <div class="alert__icon">
+        <i class="fa fa-circle-xmark fa-3x"></i>
+      </div>
+      <div class="alert__text">
+        <h4 class="alert__title">Ошибка</h4>
+        <p class="alert__info">Не удалось загрузить фото</p>
+      </div>
+    </div>
+
+
+
+    <!-- Alert notifications end -->
+
+    <!-- Grid post template start -->
+    <template id="post-template">
+      <div class="post">
+        <img src="" />
+        <div class="overlay">
+          <div class="overlay__content">
+            <div class="likes">
+              <i class="fa fa-heart"></i>
+              <span class="post-likes-counter">0</span>
+            </div>
+            <div class="comments">
+              <i class="fa fa-comment"></i>
+              <span class="post-comments-counter">0</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </template>
+    <!-- Grid post template end -->
+
+    <!-- Comment post template start -->
+    <template id="comment-template">
+      <div class="comments__item">
+        <div class="avatar-container-small">
+          <img class="comments__item-avatar avatar-small" src="./assets/sample-avatar.jpg" width="40" alt="" />
+        </div>
+        <div class="comments__item-text">
+          <h3 class="comments__item-nickname">anastas_kvl</h3>
+          <p class="comments__item-comment">
+            Думаю, что еще SEO-специалисты пользуются этими языками,
+            интересный пост!👌
+          </p>
+          <span class="comments__item-time">15 октября в 21:40</span>
+        </div>
+        <div class="comments__item-delete"><button class="comments__item-delete-btn"></button></div>
+      </div>
+    </template>
+    <!-- Comment post template end -->
+    
+    <script type="module" src="scripts/main.js"></script>
+</body>
+
+</html>
